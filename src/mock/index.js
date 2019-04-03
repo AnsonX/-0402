@@ -1,9 +1,8 @@
 import Mock from 'mockjs'
-import { detail, login } from './user'
+import user from './user'
 
 const mockData = {
-  detail,
-  login
+  ...user
 }
 
 export default {

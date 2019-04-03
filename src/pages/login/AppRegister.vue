@@ -1,23 +1,23 @@
 <template>
   <div class='page'>
     <div class="login-box">
-      <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-position="left" label-width="0px"
+      <el-form :model="ruleForm.params" :rules="ruleForm.rules" ref="ruleForm" label-position="left" label-width="0px"
                class="demo-ruleForm login-container" status-icon>
         <h3 class="title">注册</h3>
         <el-form-item prop="account">
-          <el-input type="text" v-model="ruleForm.account" auto-complete="off" placeholder="账号"
+          <el-input type="text" v-model="ruleForm.params.account" auto-complete="off" placeholder="账号"
                     id="loginEmail"></el-input>
         </el-form-item>
         <el-form-item prop="password">
-          <el-input type="password" v-model="ruleForm.password" auto-complete="off" placeholder="密码"
+          <el-input type="password" v-model="ruleForm.params.password" auto-complete="off" placeholder="密码"
                     id="loginPassword"></el-input>
         </el-form-item>
         <el-form-item prop="checkPass">
-          <el-input type="password" v-model="ruleForm.checkPass" auto-complete="off" placeholder="重复密码"
+          <el-input type="password" v-model="ruleForm.params.checkPass" auto-complete="off" placeholder="重复密码"
                     id="loginCheckPass"></el-input>
         </el-form-item>
         <el-form-item style="width:100%;">
-          <el-button type="primary" style="width:100%;" @click.native.prevent="handleSubmit" :loading="logining">
+          <el-button type="primary" style="width:100%;" @click.native.prevent="handleSubmit" :loading="act.logining">
             注册
           </el-button>
         </el-form-item>
@@ -33,6 +33,8 @@
   </div>
 </template>
 <script>
+import { requestRegister } from '@/api/user'
+
 export default {
   name: 'app-login',
   data () {
@@ -107,7 +109,6 @@ export default {
         }
       })
     }
-  }
   }
 }
 </script>

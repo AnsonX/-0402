@@ -1,24 +1,44 @@
-const AppLogin = import('@/pages/login/AppLogin')
-const AppRegister = import('@/pages/login/AppRegister')
-const HelloWord = import('@/components/HelloWord')
+import BaseMainLayout from '@/components/layout/BaseMainLayout'
+const AppLogin = () => import('@/pages/login/AppLogin')
+const AppRegister = () => import('@/pages/login/AppRegister')
+const HelloWorld = () => import('@/components/HelloWorld')
+const AppError401 = () => import('@/pages/error/AppError401')
+const AppError404 = () => import('@/pages/error/AppError404')
 
 /* 静态页面路由 */
 const staticRouter = [
   {
     path: '/',
-    redirect: '/index'
-  }, {
+    component: BaseMainLayout,
+    children: [
+      {
+        path: '',
+        name: 'home',
+        component: HelloWorld
+      }
+    ]
+  },
+  {
     path: '/login',
-    name: '登录',
+    name: 'login',
     component: AppLogin
-  }, {
+  },
+  {
     path: '/register',
-    name: '注册',
+    name: 'register',
     component: AppRegister
-  }, {
-    path: '/index',
-    name: '首页',
-    component: HelloWord
+  },
+  {
+    path: '/error/401',
+    name: '错误401',
+    meta: {errorPage: true},
+    component: AppError401
+  },
+  {
+    path: '*',
+    name: '错误404',
+    meta: {errorPage: true},
+    component: AppError404
   }
 ]
 

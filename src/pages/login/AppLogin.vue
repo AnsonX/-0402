@@ -43,7 +43,7 @@ import { requestLogin } from '@/api/user'
 
 export default {
   name: 'app-login',
-  data() {
+  data () {
     return {
       common: {
       },
@@ -92,14 +92,15 @@ export default {
         }
       })
     }
-  },
-  beforeRouteEnter (to, from, next) {
-    next(vm => {
-      if (from.fullPath !== '/register' && !from.meta.errorPage) {
-        vm.fromUrl = from.fullPath
-      }
-    })
   }
+  // beforeRouteEnter (to, from, next) {
+  //   console.log('beforeRouteEnter:', to, from, next)
+  //   next(vm => {
+  //     if (from.fullPath !== '/register' && !from.meta.errorPage) {
+  //       vm.fromUrl = from.fullPath
+  //     }
+  //   })
+  // }
 }
 </script>
 <style lang="scss" scoped>

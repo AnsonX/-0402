@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { MessageBox } from 'element-ui'
+import {MessageBox, Message} from 'element-ui'
 
 /**
  * 一、request：
@@ -37,7 +37,12 @@ import { MessageBox } from 'element-ui'
  *
  */
 
+// 为每个请求设置默认baseURL，并添加token
 axios.defaults.baseURL = ''
+axios.interceptors.request.use(function (config) {
+  config.headers.Authorization = localStorage.getItem('user-token')
+  return config
+})
 
 export const request = (url, params, config = {}, autoErrorRes = true, autoErrorData = true) => {
   const args = Object.assign({
@@ -48,9 +53,20 @@ export const request = (url, params, config = {}, autoErrorRes = true, autoError
   // TODO 上传文件的接口请求如果需要额外参数或者不需要token，可以在config里配置，这里根据情况过滤处理一次args
 
   return axios(args).then(res => {
+    // 接口异常处理
     if (!res.data.success) {
       res.data.error = res.data.error || {}
       console.error(res.data.error)
+      // token失效
+      if (res.data.error.code === 100000) {
+        Message({
+          message: '登录失效，请重新登录',
+          type: 'error'
+        })
+        window.location.href = '/#/login'
+        return Promise.reject(res.data.error)
+      }
+      // 其他业务错误
       if (autoErrorData) {
         const err_msg = res.data.error.message || '未知的服务器错误，请联系管理员！'
         const err_cod = res.data.error.code || -1
@@ -58,8 +74,11 @@ export const request = (url, params, config = {}, autoErrorRes = true, autoError
       }
       return Promise.reject(res.data.error)
     }
+
+    // 接口正常响应
     return res.data.result
   }, error => {
+    // 后台异常处理
     console.error(error)
     if (autoErrorRes) {
       const err_status = error.response.status || -100
