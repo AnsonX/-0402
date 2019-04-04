@@ -39,6 +39,12 @@ export default {
     this.initEventBus()
   },
   mounted () {
+    setTimeout(() => {
+      this.$eventBus.$emit('changeFormLayout', {
+        title: '危大工程（xxxxxx）',
+        footer: false
+      })
+    }, 3000)
   }
 }
 </script>
