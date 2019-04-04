@@ -19,6 +19,11 @@ export default {
   },
   props: {
   },
+  watch: {
+    '$route.path' (val, oldVal) {
+      console.log('$route.path:', val);
+    }
+  },
   methods: {
     initEventBus () {
       this.$eventBus.$on('save', this.saveHandle)
@@ -37,6 +42,7 @@ export default {
   },
   created () {
     this.initEventBus()
+    console.log('create $route.path:', this.$route.path)
   },
   mounted () {
     setTimeout(() => {

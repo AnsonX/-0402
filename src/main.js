@@ -8,6 +8,7 @@ import VueScroll from 'vuescroll'
 import 'vuescroll/dist/vuescroll.css'
 import 'element-ui/lib/theme-chalk/index.css'
 import './assets/css/common.scss'
+import './assets/css/overwrite.scss'
 import './assets/css/font/iconfont.scss'
 
 Mock.mockData()

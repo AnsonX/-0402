@@ -116,6 +116,7 @@ export default {
     this.initData()
   },
   mounted () {
+    console.log('$router:', this.$router)
   }
 }
 </script>
