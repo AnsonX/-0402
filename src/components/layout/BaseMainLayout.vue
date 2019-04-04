@@ -1,7 +1,7 @@
 <template>
   <div class="main-layout">
-    <div class="header"></div>
-
+    <HeadBar v-if="headbar"></HeadBar>
+    <HeadMenu v-if="headmenu"></HeadMenu>
     <div class="main-box">
       <router-view/>
     </div>
@@ -14,11 +14,25 @@ import HeadMenu from '@/components/HeadMenu'
 
 export default {
   name: 'MainLayout',
+  components: {
+    HeadBar,
+    HeadMenu
+  },
   data () {
     return {
       common: {
       },
       act: {}
+    }
+  },
+  props: {
+    headbar: {
+      type: Boolean,
+      default: true
+    },
+    headmenu: {
+      type: Boolean,
+      default: true
     }
   },
   methods: {
@@ -33,12 +47,6 @@ export default {
   height: 100%;
   overflow: hidden;
   overflow-y: auto;
-
-  .header {
-    width: 100%;
-    height: 200px;
-    background-color: aqua;
-  }
 
   .main-box {
     width: 100%;

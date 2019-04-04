@@ -1,4 +1,6 @@
 import BaseMainLayout from '@/components/layout/BaseMainLayout'
+import BaseFormLayout from '@/components/layout/BaseFormLayout'
+const WDGCForm = () => import('@/components/weiDaGongCheng/Form')
 const AppLogin = () => import('@/pages/login/AppLogin')
 const AppRegister = () => import('@/pages/login/AppRegister')
 const HelloWorld = () => import('@/components/HelloWorld')
@@ -15,6 +17,24 @@ const staticRouter = [
         path: '',
         name: 'home',
         component: HelloWorld
+      }
+    ]
+  },
+  {
+    path: '/wdgc/form',
+    props: {
+      title: '危大工程',
+      headline: true,
+      savebtn: true,
+      submitbtn: true,
+      closebtn: true
+    },
+    component: BaseFormLayout,
+    children: [
+      {
+        path: '',
+        name: 'formDetail',
+        component: WDGCForm
       }
     ]
   },

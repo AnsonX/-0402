@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import Plugins from './plugin'
 import Mock from './mock/index'
 import ElementUI from 'element-ui'
 import VueScroll from 'vuescroll'
@@ -11,6 +12,7 @@ import './assets/css/font/iconfont.scss'
 
 Mock.mockData()
 Vue.config.productionTip = false
+Vue.use(Plugins)
 Vue.use(ElementUI)
 Vue.use(VueScroll, {ops: {bar: {background: '#C0C4CC'}}})
 

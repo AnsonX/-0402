@@ -1,10 +1,7 @@
 <template>
-  <div class="main-layout">
-    <div class="header"></div>
-    
-    <div class="main-box">
-      <router-view/>
-    </div>
+  <div class="head-bar">
+    head bar ！！
+    内部包含地图，个人头像，消息通知链接图标
   </div>
 </template>
 
@@ -24,21 +21,9 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-.main-layout {
-  box-sizing: border-box;
+.head-bar {
   width: 100%;
-  height: 100%;
-  overflow: hidden;
-  overflow-y: auto;
-
-  .header {
-    width: 100%;
-    height: 200px;
-    background-color: aqua;
-  }
-
-  .main-box {
-    width: 100%;
-  }
+  height: 200px;
+  background-color: aqua;
 }
 </style>

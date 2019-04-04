@@ -27,9 +27,15 @@ const info = {
       'roles': ['admin'],
       'permissions': [
         {
+          desc: '用户',
           name: 'user',
           // permission存储数据级权限控制
           permission: ['modify', 'delete']
+        },
+        {
+          desc: '危大工程',
+          name: 'wdgc',
+          permission: ['add', 'modify', 'delete']
         }
       ]
     },

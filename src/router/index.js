@@ -21,6 +21,7 @@ const routerInit = (permissions) => {
         if (routeItem) {
           routeItem.meta.permission = v.permission ? v.permission : []
         }
+        console.log('routeItem:', routeItem)
       })
     } else {
       // 该权限下只配了string（一个路由）
@@ -42,8 +43,18 @@ const pagePermission = (permissions, toPath, next) => {
   }
 
   permissions.forEach(function (v) {
-    if (v.name === toPath) {
-      allowPage = true
+    // 如果该权限下配了array（多个路由）
+    if (Array.isArray(permissionMap[v.name].path)) {
+      permissionMap[v.name].path.forEach(subPath => {
+        if (toPath === subPath) {
+          allowPage = true
+        }
+      })
+    } else {
+      // 该权限下只配了string（一个路由）
+      if (toPath === permissionMap[v.name].path) {
+        allowPage = true
+      }
     }
   })
 
@@ -74,7 +85,11 @@ router.beforeEach((to, from, next) => {
   if (!userInfo) {
     requestUserInfo({}).then(userInfo => {
       const permissions = userInfo.permissions || []
+
+      // 初始化操作级权限
       routerInit(permissions)
+
+      // 路由跳转控权
       pagePermission(permissions, to.path, next)
     }).catch((err) => {
       // 获取用户信息异常

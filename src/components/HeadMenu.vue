@@ -1,10 +1,6 @@
 <template>
-  <div class="main-layout">
-    <div class="header"></div>
-    
-    <div class="main-box">
-      <router-view/>
-    </div>
+  <div class="head-menu">
+    head menu 根据权限展示一级、二级菜单，默认选中第一个菜单
   </div>
 </template>
 
@@ -24,21 +20,9 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-.main-layout {
-  box-sizing: border-box;
+.head-menu {
   width: 100%;
-  height: 100%;
-  overflow: hidden;
-  overflow-y: auto;
-
-  .header {
-    width: 100%;
-    height: 200px;
-    background-color: aqua;
-  }
-
-  .main-box {
-    width: 100%;
-  }
+  min-height: 40px;
+  background-color:khaki;
 }
 </style>

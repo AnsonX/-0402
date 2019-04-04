@@ -12,7 +12,7 @@ export default {
       common: {
       },
       act: {},
-      msg: 'welcom to dashboard page!!'
+      msg: 'welcom to helloworld page!!'
     }
   },
   methods: {
