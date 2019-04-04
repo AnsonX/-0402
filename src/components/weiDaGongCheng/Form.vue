@@ -5,14 +5,10 @@
 </template>
 
 <script>
-import HeadBar from '@/components/HeadBar'
-import HeadMenu from '@/components/HeadMenu'
 
 export default {
   name: 'MainLayout',
   components: {
-    HeadBar,
-    HeadMenu
   },
   data () {
     return {
@@ -22,26 +18,6 @@ export default {
     }
   },
   props: {
-    title: {
-      type: String,
-      default: ''
-    },
-    headline: {
-      type: Boolean,
-      default: false
-    },
-    savebtn: {
-      type: Boolean,
-      default: false
-    },
-    submitbtn: {
-      type: Boolean,
-      default: false
-    },
-    closebtn: {
-      type: Boolean,
-      default: false
-    }
   },
   methods: {
     initEventBus () {
