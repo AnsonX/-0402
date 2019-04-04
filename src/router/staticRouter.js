@@ -27,7 +27,8 @@ const staticRouter = [
       headline: true,
       savebtn: true,
       submitbtn: true,
-      closebtn: true
+      closebtn: true,
+      footer: true
     },
     component: BaseFormLayout,
     children: [

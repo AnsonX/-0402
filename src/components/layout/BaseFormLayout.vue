@@ -14,7 +14,7 @@
     <div class="form-box">
       <router-view/>
     </div>
-    <div class="footer-box">
+    <div v-if="footer" class="footer-box">
       <div class="button-box">
         <el-button v-if="savebtn" type="primary" @click="save">保存</el-button>
         <el-button v-if="submitbtn" type="primary" @click="submit">办结</el-button>
@@ -59,6 +59,10 @@ export default {
       default: false
     },
     closebtn: {
+      type: Boolean,
+      default: false
+    },
+    footer: {
       type: Boolean,
       default: false
     }
