@@ -1,4 +1,4 @@
-# vue-llplatform
+# vue-wdgc
 
 > A Vue.js project
 
