@@ -5,14 +5,21 @@
         <h1>{{ `${title}` }}</h1>
       </div>
       <div v-if="headline" class="head-line"></div>
-    </div>
-    <div class="button-box">
-      <el-button v-if="savebtn" type="primary" @click="save">保存</el-button>
-      <el-button v-if="submitbtn" type="primary" @click="submit">办结</el-button>
-      <el-button v-if="closebtn" type="primary" @click="close">关闭</el-button>
+      <div class="button-box">
+        <el-button v-if="savebtn" type="primary" @click="save">保存</el-button>
+        <el-button v-if="submitbtn" type="primary" @click="submit">办结</el-button>
+        <el-button v-if="closebtn" type="primary" @click="close">关闭</el-button>
+      </div>
     </div>
     <div class="form-box">
       <router-view/>
+    </div>
+    <div class="footer-box">
+      <div class="button-box">
+        <el-button v-if="savebtn" type="primary" @click="save">保存</el-button>
+        <el-button v-if="submitbtn" type="primary" @click="submit">办结</el-button>
+        <el-button v-if="closebtn" type="primary" @click="close">关闭</el-button>
+      </div>
     </div>
   </div>
 </template>
@@ -109,6 +116,13 @@ export default {
     right: 24px;
     height: 100px;
     line-height: 100px;
+  }
+
+  .footer-box {
+    width: 100%;
+    height: 100px;
+    position: relative;
+    border-top: solid 1px #e1e4e8;
   }
 }
 </style>

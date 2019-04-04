@@ -1,7 +1,7 @@
 <template>
   <div class="head-bar">
     head bar ！！
-    内部包含地图，个人头像，消息通知链接图标
+    内部包含底图，个人头像，消息通知链接图标
   </div>
 </template>
 
