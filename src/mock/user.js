@@ -37,7 +37,6 @@ const info = {
         {
           desc: '统计查询',
           name: 'tjcx'
-
         },
         {
           desc: '危大工程',
