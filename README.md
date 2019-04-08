@@ -127,7 +127,9 @@ npm test
 
 4.store
 
-  结构：
+  结构：api抽离出去，一个服务对应一个js文件
+
+  /api
 
   /store
 
@@ -143,33 +145,64 @@ npm test
 
    -index.js
 
-  state：包含个人信息，项目信息（基本信息&流程状态信息）
+  state：包含个人信息（基本信息&角色信息&权限信息），项目信息（基本信息&流程状态信息）
 
   store拆分：
 
-   1) action尽量根据系统服务模块拆分，避免重复编码
+   1) 全局state&action&mutation&getters尽量根据系统服务模块拆分组合
      
      例如：
+    const user = {
 
-     /actions
+      userInfo: {
 
-      -user.js
+      }
 
-      -file.js
+    }
 
-      -project.js
+    const project = {
 
-    2) state 负责存放全局信息例如user信息project信息project流程状态信息等
+      projectInfo: {
 
-       mutation负责更新全局state的值
+      }
 
-       getters根据业务需要声明全局信息，供给page内组件使用
+    }
+
+    const state = {
+
+      ...user,
+
+      ...project
+
+    }
+
+    export default state
 
    关于module：
    
-   如果系统越来越复杂，并且不想一次性注册进store，可以考虑拆分成module（封装性更强），根据业务动态注册到store中
+   如果系统越来越复杂，并且不想把所有store一次性注册，可以考虑拆分成module（封装性更强，耦合度更低），根据业务动态注册到store中（有的module动态注册到个别组件中更合理）
 
    例子：
+ 
+  #upload.js
+
+  import state from './state.js'
+
+  import mutations from './mutations.js'
+
+  import actions from './actions.js'
+
+  export default {
+
+    namespaced: true,
+
+    state,
+
+    mutations,
+
+    actions
+
+  }
 
    系统级注册
 
