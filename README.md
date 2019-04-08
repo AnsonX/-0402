@@ -27,83 +27,149 @@ npm run e2e
 npm test
 ```
 
-开发规范（代码不要出现eslint检查warning）
-1.代码
+#开发规范（代码不要出现eslint检查warning）
+##1.代码
  1) 变量驼峰命名；权限等全局常量使用全大写，下划线分隔
+
  2) 函数&块语句中的空格，文件结尾空行，符合eslint检查标准规则
-2.注释
+
+##2.注释
  1) 单行注释较短可以放在代码结尾，双斜杠左右空一格；单行注释较长要单起一行，之前空一行，如果在局部作用域第一行可以不用空一行
-3.组件
+
+##3.组件
  1) 命名：vue文件命名首字母大写，驼峰命名。复杂组件单独放在一个目录中，目录首字母大写，驼峰命名。非业务相关的基础组件统一加上Base前缀。
+
  2) 文件内import的组件命名首字母大写，驼峰命名
+
  3) 其他可读性建议：
+
   -1. 模板中v-if等指令写在最前面，方便查看业务逻辑。
+
   -2. data拆分原则：保证单一数来源的基础上拆分
+
     例子：
+
       data () {
+
         return {
+
           common: {
+
             // 不能直接从props或者store中获取的，或者需要特殊处理的全局信息统一写在common中
+
           },
+
           act: {
+
             // 纯交互相关参数，比如loading，显示隐藏规则等放这里
+
             loading: {
+
               componentA: false,
+
               componentB: false
+
             },
+
             show: {
+
               componentA: false,
+
               componentB: false
+
             }
+
           },
+
           componentA: {
+
             // 界面上显示的表单&表格&流程状态等信息，一般一个组件（基本组件或者）对应一个查询&提交接口
+
             params: {
+
             },
+
             data: {}, // 用于存放响应数据，对象或者数组
+
             rules: [] // 可选，表单校验规则
+
           }
+
         }
+
       }
+
     -3. props定义要声明类型和default值：
+
       props: {
+
         title: {
+
           type: String,
+
           default: ''
+
         }
+
       }
+
     -4. computed：基本数据如果不能直接用在模板中，表达式或者加工逻辑写在computed中
+
     -5. watch: 基本数据变化引起的其他业务操作(数据同步等)写在watch中
+
     -6. mixin和util: 一般复杂组件有时候需要在内部提炼代码，但是提炼的代码又不能放到系统全局中，可以在组件目录中创建mixin和utils目录
+
       原method中需要抽离的业务逻辑放在mixin中，需要抽离的业务无关的方法放在util中，写成纯函数
-4.store
+
+##4.store
   结构：
+
   /store
+
    -/actions
+
    -/getters
+
    -/mutations
+
    -/state
+
    -/modules
+
    -index.js
 
   state：包含个人信息，项目信息（基本信息&流程状态信息）
+
   store拆分：
+
    action根据系统模块拆分;开发过程中临时产生的功能独立的模块（比如文件上传下载，）可以拆分成一个module，根据业务动态注册到store中
+
    例子：
+
    系统级注册
+
    import uploadStore from '@/store/modules/upload'
+
    store.registerModule('upload', uploadStore)
+
    ...
+
    this.$dispatch('upload/getUrl', {})
+
    ...
 
    组件级注册
+
   import fileLinkStore from '@/store/modules/fileLink'
+
   const action = this.$store._actions['fileLink/addMarkup']
+
   if (!action) { // 保证只注册一次module
+
     this.$store.registerModule('fileLink', fileLinkStore)
+    
   }
-  
+
 
   
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
