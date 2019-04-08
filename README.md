@@ -147,7 +147,27 @@ npm test
 
   store拆分：
 
-   action根据系统模块拆分;开发过程中临时产生的功能独立的模块（比如文件上传下载，）可以拆分成一个module，根据业务动态注册到store中
+   1) action尽量根据系统服务模块拆分，避免重复编码
+     
+     例如：
+
+     /actions
+
+      -user.js
+
+      -file.js
+
+      -project.js
+
+    2) state 负责存放全局信息例如user信息project信息project流程状态信息等
+
+       mutation负责更新全局state的值
+
+       getters根据业务需要声明全局信息，供给page内组件使用
+
+   关于module：
+   
+   如果系统越来越复杂，并且不想一次性注册进store，可以考虑拆分成module（封装性更强），根据业务动态注册到store中
 
    例子：
 

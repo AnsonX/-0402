@@ -39,7 +39,6 @@
 </template>
 <script>
 import sha256 from 'crypto-js/sha256'
-import { requestLogin } from '@/api/user'
 
 export default {
   name: 'app-login',
@@ -75,7 +74,7 @@ export default {
         if (valid) {
           this.act.logining = true
           const loginParams = { username: this.loginForm.params.account, password: sha256(this.loginForm.params.checkPass) }
-          requestLogin(loginParams).then(data => {
+          this.$store.dispatch('userLogin', loginParams).then(data => {
             this.act.logining = false
             this.$message({
               message: '登录成功！',

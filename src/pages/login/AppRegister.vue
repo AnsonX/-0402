@@ -33,7 +33,6 @@
   </div>
 </template>
 <script>
-import { requestRegister } from '@/api/user'
 
 export default {
   name: 'app-login',
@@ -92,7 +91,7 @@ export default {
             password: this.ruleForm.params.password,
             checkPass: this.ruleForm.params.checkPass
           }
-          requestRegister(registerParams).then(data => {
+          this.$store.dispatch('userRegister', registerParams).then(data => {
             this.act.loading = false
             this.$message({
               message: '注册成功！',
