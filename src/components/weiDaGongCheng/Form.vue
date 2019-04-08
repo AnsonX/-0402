@@ -21,7 +21,7 @@ export default {
   },
   watch: {
     '$route.path' (val, oldVal) {
-      console.log('$route.path:', val);
+      console.log('$route.path:', val)
     }
   },
   methods: {

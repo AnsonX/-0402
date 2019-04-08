@@ -52,30 +52,14 @@ export default {
       }
     }
   },
-  props: {
-    data: {
-      type: Array,
-      default: []
-    }
-  },
   watch: {
     '$route.path' (val, oldVal) {
-      console.log('$route.path:', val);
+      console.log('$route.path:', val)
     }
   },
   methods: {
     initData () {
-      if (Array.isArray(this.data)) {
-        this.data.forEach(item => {
-          const menuItem = {
-            title: item.title,
-            url: item.url
-          }
-          if (Array.isArray(item.menus)) {
-
-          }
-        })
-      }
+      // TODO 根据系统&角色&权限生产菜单数据
     },
     changeActive (item, isLevelTwo = false) {
       const title = item.title
@@ -96,7 +80,6 @@ export default {
   },
   created () {
     console.log('create $route.path:', this.$route.path)
-
   },
   mounted () {
     console.log('$router:', this.$router)

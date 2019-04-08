@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import whiteList from './whiteList'
 import permissionMap from '@/permission'
 import staticRouter from './staticRouter'
-import { requestUserInfo } from '@/api/user'
+import userApi from '@/api/user'
 
 Vue.use(Router)
 
@@ -80,10 +80,10 @@ router.beforeEach((to, from, next) => {
   }
 
   let userInfo = JSON.parse(sessionStorage.getItem('user-info'))
-
+  console.log('userApi:', userApi)
   // 上次会话结束，重新获取用户信息
   if (!userInfo) {
-    requestUserInfo({}).then(userInfo => {
+    userApi.info({}).then(userInfo => {
       const permissions = userInfo.permissions || []
 
       // 初始化操作级权限
