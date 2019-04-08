@@ -27,16 +27,20 @@ npm run e2e
 npm test
 ```
 
-#开发规范（代码不要出现eslint检查warning）
-##1.代码
+开发规范（代码不要出现eslint检查warning）
+
+1.代码
+
  1) 变量驼峰命名；权限等全局常量使用全大写，下划线分隔
 
  2) 函数&块语句中的空格，文件结尾空行，符合eslint检查标准规则
 
-##2.注释
+2.注释
+
  1) 单行注释较短可以放在代码结尾，双斜杠左右空一格；单行注释较长要单起一行，之前空一行，如果在局部作用域第一行可以不用空一行
 
-##3.组件
+3.组件
+
  1) 命名：vue文件命名首字母大写，驼峰命名。复杂组件单独放在一个目录中，目录首字母大写，驼峰命名。非业务相关的基础组件统一加上Base前缀。
 
  2) 文件内import的组件命名首字母大写，驼峰命名
@@ -121,7 +125,8 @@ npm test
 
       原method中需要抽离的业务逻辑放在mixin中，需要抽离的业务无关的方法放在util中，写成纯函数
 
-##4.store
+4.store
+
   结构：
 
   /store
@@ -167,9 +172,15 @@ npm test
   if (!action) { // 保证只注册一次module
 
     this.$store.registerModule('fileLink', fileLinkStore)
-    
+
   }
 
+5.样式
 
+ 1) 尽量不要写行内样式，class命名规则要统一（form-wrap）
+ 
+ 2) 样式尽量控制在单文件内部，不依赖其他文件
+
+ 3) 如果需要覆盖ui框架的样式，在公共style目录中建立自己的命名空间（gld-table）
   
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
