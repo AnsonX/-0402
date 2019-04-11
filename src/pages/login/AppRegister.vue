@@ -35,7 +35,7 @@
 <script>
 
 export default {
-  name: 'app-login',
+  name: 'appRegister',
   data () {
     return {
       common: {},

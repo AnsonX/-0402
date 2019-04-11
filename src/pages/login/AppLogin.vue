@@ -41,7 +41,7 @@
 import sha256 from 'crypto-js/sha256'
 
 export default {
-  name: 'app-login',
+  name: 'appLogin',
   data () {
     return {
       common: {
@@ -74,7 +74,7 @@ export default {
         if (valid) {
           this.act.logining = true
           const loginParams = { username: this.loginForm.params.account, password: sha256(this.loginForm.params.checkPass) }
-          this.$store.dispatch('userLogin', loginParams).then(data => {
+          this.$store.dispatch('userLogin', loginParams).then(() => {
             this.act.logining = false
             this.$message({
               message: '登录成功！',

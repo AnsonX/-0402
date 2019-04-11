@@ -1,43 +1,16 @@
-import BaseMainLayout from '@/components/layout/BaseMainLayout'
-import BaseFormLayout from '@/components/layout/BaseFormLayout'
-const WDGCForm = () => import('@/components/weiDaGongCheng/Form')
+
 const AppLogin = () => import('@/pages/login/AppLogin')
 const AppRegister = () => import('@/pages/login/AppRegister')
-const HelloWorld = () => import('@/components/HelloWorld')
 const AppError401 = () => import('@/pages/error/AppError401')
 const AppError404 = () => import('@/pages/error/AppError404')
+const user = () => import('@/pages/user')
+const msgForm = () => import('@/pages/msg/form')
+const msgList = () => import('@/pages/msg/list')
 
-/* 静态页面路由 */
-const staticRouter = [
+const commonRouter = [
   {
     path: '/',
-    component: BaseMainLayout,
-    children: [
-      {
-        path: '',
-        name: 'home',
-        component: HelloWorld
-      }
-    ]
-  },
-  {
-    path: '/wdgc/form',
-    props: {
-      title: '危大工程',
-      headline: true,
-      savebtn: true,
-      submitbtn: true,
-      closebtn: true,
-      footer: true
-    },
-    component: BaseFormLayout,
-    children: [
-      {
-        path: '',
-        name: 'formDetail',
-        component: WDGCForm
-      }
-    ]
+    name: 'redirect'
   },
   {
     path: '/login',
@@ -50,17 +23,43 @@ const staticRouter = [
     component: AppRegister
   },
   {
+    path: '/user',
+    name: 'user',
+    component: user
+  },
+  {
+    path: '/msg/form',
+    name: 'msgForm',
+    component: msgForm
+  },
+  {
+    path: '/msg/list',
+    name: 'msgList',
+    component: msgList
+  },
+  {
     path: '/error/401',
     name: '错误401',
     meta: {errorPage: true},
     component: AppError401
   },
   {
-    path: '*',
+    path: '/error/404',
     name: '错误404',
     meta: {errorPage: true},
     component: AppError404
   }
 ]
+export const footRouter = [
+  {
+    path: '*',
+    redirect: '/error/404',
+    hidden: true,
+    meta: {errorPage: true}
+  }
+]
 
-export default staticRouter
+/* 静态页面路由 */
+export const staticRouter = [
+  ...commonRouter
+]

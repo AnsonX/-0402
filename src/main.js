@@ -21,8 +21,5 @@ new Vue({
   store,
   router,
   components: { App },
-  template: '<App/>',
-  mounted () {
-    console.log('$router:', this.$router)
-  }
+  render: h => h(App)
 })

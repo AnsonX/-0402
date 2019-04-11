@@ -1,6 +1,6 @@
 const user = {
-  SET_PROJECT_INFO: (state, data) => {
-    state.projectInfo = data
+  SET_USER_INFO: (state, data) => {
+    state.userInfo = data
   }
 }
 
