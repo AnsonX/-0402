@@ -2,7 +2,7 @@
 const permissionMap = {
   'user': {
     desc: '用户信息',
-    path: '/user'
+    path: ['/user']
   },
   'msg': {
     desc: '消息查看',
@@ -10,7 +10,7 @@ const permissionMap = {
   },
   'tjcx': {
     desc: '统计查询',
-    path: '/tjcx'
+    path: ['/tjcx']
   },
   'wdgcqd': {
     desc: '危大工程清单',

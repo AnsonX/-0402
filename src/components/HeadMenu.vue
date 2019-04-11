@@ -1,88 +1,154 @@
 <template>
   <div class="head-menu">
-    <div class="level-one">
-      <div v-for="(item, index) in menu.data.levelOne" v-bind:key="index" :class="item.clz" @click="changeActive(item)"><h2>{{item.title}}</h2></div>
+    <div class="first-level-menu">
+      <div v-for="(item, index) in firstLevelMenu" v-bind:key="index" :class="item.clz" @click="changeActive(item)"><h2>{{item.title}}</h2></div>
     </div>
-    <div v-if="act.menu.levelTwo" class="level-two">
-    </div>
+    <span class="second-level-menu">
+      <div v-for="(item, index) in secondLevelMenu" v-bind:key="index" :class="item.clz" @click="changeActive(item)"><span>{{item.title}}</span></div>
+    </span>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+import permissionMap from '@/permission'
+
 export default {
   name: 'MainLayout',
   data () {
     return {
       common: {
-        menuMap: {}
-      },
-      act: {
-        menu: {
-          levelTwo: true
-        }
-      },
-      menu: {
-        params: {
-        },
-        data: {
-          levelOne: [
+        menuMap: {
+          supervise: [ // 主管单位菜单配置
             {
+              permissionName: 'tjcx',
               title: '首页',
-              url: '/',
-              clz: 'menu-item active'
+              path: [ ...permissionMap.tjxc.path ],
+              clz: 'menu-item'
             },
-            {
+            { permissionName: 'wdgcqd',
               title: '危大工程清单',
-              url: '/',
+              path: [ ...permissionMap.tjxc.path ],
               clz: 'menu-item'
             },
             {
+              permissionName: 'zjkgl',
               title: '专家库管理',
-              url: '/',
-              clz: 'menu-item'
+              path: [
+                ...permissionMap.zjkgl_zjxxcs.path,
+                ...permissionMap.zjkgl_zjxxsh.path,
+                ...permissionMap.zjkgl_hgzjxxk.path,
+                ...permissionMap.zjkgl_zjxypj.path,
+                ...permissionMap.zjkgl_hmd.path
+              ],
+              clz: 'menu-item',
+              children: [
+                {
+                  permissionName: 'zjkgl_zjxxcs',
+                  title: '专家信息初审',
+                  path: [ ...permissionMap.zjkgl_zjxxcs.path ],
+                  clz: 'menu-subitem'
+                },
+                {
+                  permissionName: 'zjkgl_zjxxsh',
+                  title: '专家信息审核',
+                  path: [ ...permissionMap.zjkgl_zjxxsh.path ],
+                  clz: 'menu-subitem'
+                },
+                {
+                  permissionName: 'zjkgl_hgzjxxk',
+                  title: '合格专家信息库',
+                  path: [ ...permissionMap.zjkgl_hgzjxxk.path ],
+                  clz: 'menu-subitem'
+                },
+                {
+                  permissionName: 'zjkgl_zjxypj',
+                  title: '专家信用评价',
+                  path: [ ...permissionMap.zjkgl_zjxypj.path ],
+                  clz: 'menu-subitem'
+                },
+                {
+                  permissionName: 'zjkgl_hmd',
+                  title: '黑名单',
+                  path: [ ...permissionMap.zjkgl_hmd.path ],
+                  clz: 'menu-subitem'
+                }
+              ]
             },
             {
+              permissionName: 'dagl',
               title: '档案管理',
-              url: '/',
+              path: [ ...permissionMap.dagl.path ],
               clz: 'menu-item'
             }
           ],
-          levelTwo: []
+          construct: [ // 建设单位菜单配置
+          ],
+          work: [ // 施工单位菜单配置
+          ],
+          constructControl: [ // 监理单位菜单配置
+          ],
+          monitor: [ // 监测单位菜单配置
+          ]
         }
+      },
+      act: {
       }
+    }
+  },
+  computed: {
+    ...mapGetters([
+      'getUserInfo',
+      'getPermissions'
+    ]),
+    firstLevelMenu () {
+      console.log('computed getPermissions:', this.getPermissions)
+      const orgType = this.getUserInfo && this.getUserInfo.org.type || null
+      let arr = this.common.menuMap[orgType]
+      return arr
+    },
+    secondLevelMenu () {
+      const firstLevelMenu = this.firstLevelMenu
+      let arr = []
+      return arr
     }
   },
   watch: {
     '$route.path' (val, oldVal) {
-      console.log('$route.path:', val)
+      // 监测路由变化，更新菜单选中项
+      this.activeMenuItem(val)
     }
   },
   methods: {
-    initData () {
-      // TODO 根据系统&角色&权限生产菜单数据
-    },
-    changeActive (item, isLevelTwo = false) {
-      const title = item.title
-      let menus = this.menu.data.levelOne
-      if (isLevelTwo) {
-        menus = this.menu.data.levelTwo
+    activeMenuItem (path) { // 根据当前路由高亮显示对应的菜单项
+      if (this.firstLevelMenu) {
+        this.firstLevelMenu.forEach(item => {
+          if (item.path.includes(path)) {
+            item.clz = 'menu-item active'
+          } else {
+            item.clz = 'menu-item'
+          }
+        })
       }
-      menus.forEach((o, index) => {
-        if (title === o.title) {
-          o.clz = 'menu-item active'
-          // 路由跳转
-          this.$router.push(o.url)
-        } else {
-          o.clz = 'menu-item'
-        }
-      })
+      if (this.secondLevelMenu) {
+        this.secondLevelMenu.forEach(item => {
+          if (item.path.includes(path)) {
+            item.clz = 'menu-subitem active'
+          } else {
+            item.clz = 'menu-subitem'
+          }
+        })
+      }
+    },
+    changeActive (item) { // 点击菜单项，路由跳转
+      const path = item.path[0]
+      this.$router.push(path)
     }
   },
   created () {
-    console.log('create $route.path:', this.$route.path)
+    this.activeMenuItem(this.$route.path)
   },
   mounted () {
-    console.log('$router:', this.$router)
   }
 }
 </script>

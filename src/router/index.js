@@ -99,12 +99,8 @@ const isHasPermission = (permissions, routeItem) => {
   // 查找当前路由是否有对应权限支持
   arr.some(permissionItem => {
     if (permissionMap[permissionItem.name]) { // 过滤父级权限
-      // 如果该权限下配了array（多个路由）
       if (Array.isArray(permissionMap[permissionItem.name].path)) {
         r = permissionMap[permissionItem.name].path.includes(path)
-      } else {
-      // 该权限下只配了string（一个路由）
-        r = permissionMap[permissionItem.name].path === path
       }
       return r
     }

@@ -5,6 +5,9 @@ const user = {
   getUserInfo (state, getters) {
     return state.userInfo
   },
+  getPermissions (state, getters) {
+    return state.userInfo.permissions
+  },
   getOperatingAuth (state, getters) { // 获取当前界面的操作权限
     const currentRoute = router.currentRoute
     const currentPath = currentRoute.path
