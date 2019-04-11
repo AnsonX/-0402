@@ -14,7 +14,7 @@ import { mapGetters } from 'vuex'
 import permissionMap from '@/permission'
 
 export default {
-  name: 'MainLayout',
+  name: 'HeadMenu',
   data () {
     return {
       common: {
@@ -23,12 +23,13 @@ export default {
             {
               permissionName: 'tjcx',
               title: '首页',
-              path: [ ...permissionMap.tjxc.path ],
+              path: [ ...permissionMap.tjcx.path ],
               clz: 'menu-item'
             },
-            { permissionName: 'wdgcqd',
+            {
+              permissionName: 'wdgcqd',
               title: '危大工程清单',
-              path: [ ...permissionMap.tjxc.path ],
+              path: [ ...permissionMap.wdgcqd.path ],
               clz: 'menu-item'
             },
             {
@@ -102,14 +103,24 @@ export default {
       'getPermissions'
     ]),
     firstLevelMenu () {
-      console.log('computed getPermissions:', this.getPermissions)
-      const orgType = this.getUserInfo && this.getUserInfo.org.type || null
+      const permissionNames = this.getPermissions.map(item => item.name)
+      const orgType = (this.getUserInfo && this.getUserInfo.org.type) || null
       let arr = this.common.menuMap[orgType]
+      arr = arr.filter(item => {
+        return permissionNames.includes(item.permissionName)
+      })
       return arr
     },
     secondLevelMenu () {
-      const firstLevelMenu = this.firstLevelMenu
+      const path = this.$route.path
       let arr = []
+
+      this.firstLevelMenu.forEach(item => {
+        if (item.path.includes(path) && Array.isArray(item.children)) {
+            arr = item.children 
+          }
+      })
+
       return arr
     }
   },
@@ -159,6 +170,18 @@ export default {
   min-height: 40px;
   background-color:#409EFF;
   .menu-item {
+    background-color: #409EFF;
+    color: #fff;
+    &:hover {
+      background-color: #fff;
+      color: #409EFF;
+    }
+    &.active {
+      background-color: #fff;
+      color: #409EFF;
+    }
+  }
+  .menu-subitem {
     background-color: #409EFF;
     color: #fff;
     &:hover {
