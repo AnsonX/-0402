@@ -3,9 +3,9 @@
     <div class="first-level-menu">
       <div v-for="(item, index) in firstLevelMenu" v-bind:key="index" :class="item.clz" @click="changeActive(item)"><h2>{{item.title}}</h2></div>
     </div>
-    <span class="second-level-menu">
+    <div v-if="secondLevelMenu.length > 0" class="second-level-menu">
       <div v-for="(item, index) in secondLevelMenu" v-bind:key="index" :class="item.clz" @click="changeActive(item)"><span>{{item.title}}</span></div>
-    </span>
+    </div>
   </div>
 </template>
 
@@ -117,8 +117,8 @@ export default {
 
       this.firstLevelMenu.forEach(item => {
         if (item.path.includes(path) && Array.isArray(item.children)) {
-            arr = item.children 
-          }
+          arr = item.children
+        }
       })
 
       return arr
@@ -168,29 +168,60 @@ export default {
 .head-menu {
   width: 100%;
   min-height: 40px;
-  background-color:#409EFF;
+  background-color: $menu-bg-color;
+
+  .first-level-menu {
+    min-width: 900px;
+    height: 40px;
+    padding-left: 48px;
+    position: relative;
+  }
   .menu-item {
-    background-color: #409EFF;
-    color: #fff;
+    width: 200px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    float: left;
+    background-color: $menu-bg-color;
+    color: $menu-font-color;
+
     &:hover {
-      background-color: #fff;
-      color: #409EFF;
+      background-color: $menu-bg-active-color;
+      color: $menu-font-active-color;
     }
     &.active {
-      background-color: #fff;
-      color: #409EFF;
+      background-color: $menu-bg-active-color;
+      color: $menu-font-active-color;
     }
   }
+
+  .second-level-menu {
+    width: 100%;
+    height: 40px;
+    padding-left: 48px;
+    position: relative;
+    background-color: $submenu-bg-color;
+    border-bottom: solid 1px $border-color;
+  }
   .menu-subitem {
-    background-color: #409EFF;
-    color: #fff;
+    width: 180px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    float: left;
+    background-color: $submenu-bg-color;
+    color: $submenu-font-color;
+    border-bottom: solid 1px $border-color;
+
     &:hover {
-      background-color: #fff;
-      color: #409EFF;
+      background-color: $submenu-bg-active-color;
+      color: $submenu-font-active-color;
+      font-weight: bold;
     }
     &.active {
-      background-color: #fff;
-      color: #409EFF;
+      background-color: $submenu-bg-active-color;
+      color: $submenu-font-active-color;
+      font-weight: bold;
     }
   }
 }

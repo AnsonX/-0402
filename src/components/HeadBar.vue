@@ -37,7 +37,7 @@ export default {
   box-sizing: border-box;
   width: 100%;
   height: 200px;
-  background-color: #4cd2e9;
+  background-color: #abddff;
   position: relative;
   padding: 0 24px;
   .left {
