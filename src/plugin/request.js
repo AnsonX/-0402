@@ -11,17 +11,16 @@ import { MessageBox, Message } from 'element-ui'
  *     - autoErrorRes： 是否自动处理响应错误，选填，Boolean，默认值：true
  *     - autoErrorData：是否自动处理后台错误，选填，Boolean，默认值：true
  *  3. 返回：
- *     - 成功：Promise.resolve(请求成功后的结果：response.data.result)
+ *     - 成功：Promise.resolve(请求成功后的结果：response.data.data)
  *     - 失败：
  *     - 请求异常：Promise.reject(http响应错误)
- *     - 请求失败：Promise.reject(请求失败后的结果：response.data.error)
+ *     - 请求失败：Promise.reject(请求失败后的结果：response.data.message)
  *  4. 约定后台返回数据格式：
  *     response.data = {
- *       "result": 'true/false',        // 请求成功或者失败
- *       "success": {},                  //请求成功后的结果
- *       "error":{
- *         "code": 100001,              //请求失败错误码
- *         "message": "用户名字重复"     //请求失败描述
+ *       "code": 5200,              //5200代表成功响应，5401代表token失效...
+ *       "success": true/false,        // 请求成功或者失败
+ *       "data": {},                  //请求成功后的结果
+ *        "message": "用户名字重复"     //请求失败描述
  *       }
  *     }
  *
@@ -57,26 +56,28 @@ export const request = (url, params, config = {}, autoErrorRes = true, autoError
     if (!res.data.success) {
       res.data.error = res.data.error || {}
       console.error(res.data.error)
+
       // token失效
-      if (res.data.error.code === 100000) {
+      if (res.data.code === 5401) {
         Message({
           message: '登录失效，请重新登录',
           type: 'error'
         })
         window.location.href = '/#/login'
-        return Promise.reject(res.data.error)
+        return Promise.reject(res.data.message)
       }
+
       // 其他业务错误
       if (autoErrorData) {
-        const err_msg = res.data.error.message || '未知的服务器错误，请联系管理员！'
-        const err_cod = res.data.error.code || -1
+        const err_msg = res.data.message || '未知的服务器错误，请联系管理员！'
+        const err_cod = res.data.code || -1
         MessageBox.alert(err_msg, '请求失败：' + err_cod, {confirmButtonText: '确定'})
       }
-      return Promise.reject(res.data.error)
+      return Promise.reject(res.data.message)
     }
 
     // 接口正常响应
-    return res.data.result
+    return res.data
   }, error => {
     // 后台异常处理
     console.error(error)

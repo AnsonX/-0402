@@ -13,7 +13,7 @@ import HeadBar from '@/components/HeadBar'
 import HeadMenu from '@/components/HeadMenu'
 
 export default {
-  name: 'MainLayout',
+  name: 'BaseMainLayout',
   components: {
     HeadBar,
     HeadMenu

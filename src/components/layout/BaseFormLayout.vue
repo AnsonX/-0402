@@ -6,33 +6,28 @@
       </div>
       <div v-if="act.headline" class="head-line"></div>
       <div class="button-box">
-        <el-button v-if="act.savebtn" type="primary" @click="save">保存</el-button>
-        <el-button v-if="act.submitbtn" type="primary" @click="submit">办结</el-button>
-        <el-button v-if="act.closebtn" type="primary" @click="close">关闭</el-button>
+        <el-button v-if="act.savebtn === 'show' || act.savebtn === 'disabled'" :disabled="act.savebtn === 'disabled'" type="primary" @click="save">保存</el-button>
+        <el-button v-if="act.submitbtn === 'show' || act.submitbtn === 'disabled'" :disabled="act.submitbtn === 'disabled'" type="primary" @click="submit">办结</el-button>
+        <el-button v-if="act.closebtn === 'show' || act.closebtn === 'disabled'" :disabled="act.closebtn === 'disabled'" type="primary" @click="close">关闭</el-button>
       </div>
     </div>
     <div class="form-box">
-      <router-view/>
+      <slot></slot>
     </div>
     <div v-if="act.footer" class="footer-box">
       <div class="button-box">
-        <el-button v-if="act.savebtn" type="primary" @click="save">保存</el-button>
-        <el-button v-if="act.submitbtn" type="primary" @click="submit">办结</el-button>
-        <el-button v-if="act.closebtn" type="primary" @click="close">关闭</el-button>
+        <el-button v-if="act.savebtn === 'show' || act.savebtn === 'disabled'" :disabled="act.savebtn === 'disabled'" type="primary" @click="save">保存</el-button>
+        <el-button v-if="act.submitbtn === 'show' || act.submitbtn === 'disabled'" :disabled="act.submitbtn === 'disabled'" type="primary" @click="submit">办结</el-button>
+        <el-button v-if="act.closebtn === 'show' || act.closebtn === 'disabled'" :disabled="act.closebtn === 'disabled'" type="primary" @click="close">关闭</el-button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import HeadBar from '@/components/HeadBar'
-import HeadMenu from '@/components/HeadMenu'
-
 export default {
-  name: 'MainLayout',
+  name: 'BaseFormLayout',
   components: {
-    HeadBar,
-    HeadMenu
   },
   data () {
     return {
@@ -40,9 +35,9 @@ export default {
       },
       act: {
         headline: false,
-        savebtn: false,
-        submitbtn: false,
-        closebtn: false,
+        savebtn: 'hidden',
+        submitbtn: 'hidden',
+        closebtn: 'hidden',
         footer: false
       },
       layout: {
@@ -60,28 +55,47 @@ export default {
       default: false
     },
     savebtn: {
-      type: Boolean,
-      default: false
+      type: String,
+      default: 'hidden' // hidden,show,disabled
     },
     submitbtn: {
-      type: Boolean,
-      default: false
+      type: String,
+      default: 'hidden' // hidden,show,disabled
     },
     closebtn: {
-      type: Boolean,
-      default: false
+      type: String,
+      default: 'hidden' // hidden,show,disabled
     },
     footer: {
       type: Boolean,
       default: false
+    },
+    save: {
+      type: Function,
+      default: null
+    },
+    submit: {
+      type: Function,
+      default: null
+    },
+    close: {
+      type: Function,
+      default: null
+    }
+  },
+  watch: {
+    savebtn (str) {
+      this.act.savebtn = str
+    },
+    submitbtn (str) {
+      this.act.submitbtn = str
+    },
+    closebtn (str) {
+      this.act.closebtn = str
     }
   },
   methods: {
-    initEventBus () {
-      this.$eventBus.$on('changeFormLayout', this.changeLayout)
-    },
     initData () {
-      // layout的按钮控制一般可以用路由配置，某些复杂情况下比如业务流程逻辑也影响到，可以通过eventBus通知更新
       this.layout.title = this.title
       this.act.headline = this.headline
       this.act.savebtn = this.savebtn
@@ -89,34 +103,33 @@ export default {
       this.act.closebtn = this.closebtn
       this.act.footer = this.footer
     },
-    changeLayout (data) {
-      if (typeof data === 'object') {
-        for (const i in data) {
-          if (i === 'title') {
-            this.layout.title = data[i]
-          } else {
-            this.act[i] = data[i]
-          }
-        }
+    save () {
+      if (typeof this.save === 'function') {
+        this.save()
+      } else {
+        this.$eventBus.$emit('saveBaseFormLayout')
       }
     },
-    save () {
-      this.$eventBus.$emit('save')
-    },
     submit () {
-      this.$eventBus.$emit('submit')
+      if (typeof this.submit === 'function') {
+        this.submit()
+      } else {
+        this.$eventBus.$emit('submitBaseFormLayout')
+      }
     },
     close () {
-      this.$eventBus.$emit('close')
+      if (typeof this.close === 'function') {
+        this.close()
+      } else {
+        this.$eventBus.$emit('closeBaseFormLayout')
+      }
       window.close()
     }
   },
   created () {
-    this.initEventBus()
     this.initData()
   },
   mounted () {
-    console.log('$router:', this.$router)
   }
 }
 </script>

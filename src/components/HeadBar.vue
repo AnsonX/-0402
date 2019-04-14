@@ -37,15 +37,17 @@ export default {
   box-sizing: border-box;
   width: 100%;
   height: 200px;
-  background-color: #abddff;
+  background-color: $headbar-bg-col;
   position: relative;
   padding: 0 24px;
+
   .left {
     height: 100%;
     float: left;
     line-height: 200px;
-    color:darkred;
+    color: $headbar-font-col;
   }
+
   .right {
     height: 40px;
     position: absolute;
@@ -53,10 +55,10 @@ export default {
     bottom: 24px;
 
     .topicon {
-      color: #409EFF;
+      color: $headbar-icon-col;
 
       &:hover,&:active {
-        color: rgb(140, 197, 255);
+        color: $headbar-icon-active-col;
       }
     }
   }

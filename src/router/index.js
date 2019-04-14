@@ -186,8 +186,9 @@ router.beforeEach((to, from, next) => {
     pagePermission(userInfoStore.org.type, userInfoStore.permissions, to, next)
     NProgress.done()
   } else {
-    store.dispatch('userInfo', { token: userToken }).then(userInfo => {
+    store.dispatch('userInfo', { token: userToken }).then(res => {
       NProgress.done()
+      const userInfo = res.data
       const permissions = userInfo.permissions || []
 
       updateRouter(userInfo.org.type, permissions)

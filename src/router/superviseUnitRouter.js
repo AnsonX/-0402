@@ -1,7 +1,6 @@
 /* 主管单位 */
 
 import BaseMainLayout from '@/components/layout/BaseMainLayout'
-import BaseFormLayout from '@/components/layout/BaseFormLayout'
 const SuperviseTjcx = () => import('@/pages/supervise/tjcx')
 const SuperviseWdgcqdList = () => import('@/pages/supervise/wdgcqd/list')
 const SuperviseWdgcqdForm = () => import('@/pages/supervise/wdgcqd/form')
@@ -43,14 +42,8 @@ const superviseRouter = [
   },
   {
     path: '/wdgcqd/form',
-    component: BaseFormLayout,
-    children: [
-      {
-        path: '',
-        name: 'wdgcqd_form',
-        component: SuperviseWdgcqdForm
-      }
-    ]
+    name: 'wdgcqd_form',
+    component: SuperviseWdgcqdForm
   },
   {
     path: '/zjkgl/zjxxcs/list',
@@ -65,14 +58,8 @@ const superviseRouter = [
   },
   {
     path: '/zjkgl/zjxxcs/form',
-    component: BaseFormLayout,
-    children: [
-      {
-        path: '',
-        name: 'zjkgl_zjxxcs_form',
-        component: SuperviseZjkglZjxxcsForm
-      }
-    ]
+    name: 'zjkgl_zjxxcs_form',
+    component: SuperviseZjkglZjxxcsForm
   },
   {
     path: '/zjkgl/zjxxsh/list',
@@ -87,14 +74,8 @@ const superviseRouter = [
   },
   {
     path: '/zjkgl/zjxxsh/form',
-    component: BaseFormLayout,
-    children: [
-      {
-        path: '',
-        name: 'zjkgl_zjxxsh_form',
-        component: SuperviseZjkglZjxxshForm
-      }
-    ]
+    name: 'zjkgl_zjxxsh_form',
+    component: SuperviseZjkglZjxxshForm
   },
   {
     path: '/zjkgl/hgzjxxk/list',
@@ -109,14 +90,8 @@ const superviseRouter = [
   },
   {
     path: '/zjkgl/hgzjxxk/form',
-    component: BaseFormLayout,
-    children: [
-      {
-        path: '',
-        name: 'zjkgl_hgzjxxk_form',
-        component: SuperviseZjkglHgzjxxkForm
-      }
-    ]
+    name: 'zjkgl_hgzjxxk_form',
+    component: SuperviseZjkglHgzjxxkForm
   },
   {
     path: '/zjkgl/zjxypj/list',
@@ -131,14 +106,8 @@ const superviseRouter = [
   },
   {
     path: '/zjkgl/zjxypj/form',
-    component: BaseFormLayout,
-    children: [
-      {
-        path: '',
-        name: 'zjkgl_zjxypj_form',
-        component: SuperviseZjkglZjxypjForm
-      }
-    ]
+    name: 'zjkgl_zjxypj_form',
+    component: SuperviseZjkglZjxypjForm
   },
   {
     path: '/zjkgl/hmd/list',
@@ -153,14 +122,8 @@ const superviseRouter = [
   },
   {
     path: '/zjkgl/hmd/form',
-    component: BaseFormLayout,
-    children: [
-      {
-        path: '',
-        name: 'zjkgl_hmd_form',
-        component: SuperviseZjkglHmdForm
-      }
-    ]
+    name: 'zjkgl_hmd_form',
+    component: SuperviseZjkglHmdForm
   },
   {
     path: '/dagl/list',
@@ -175,14 +138,8 @@ const superviseRouter = [
   },
   {
     path: '/dagl/form',
-    component: BaseFormLayout,
-    children: [
-      {
-        path: '',
-        name: 'dagl_form',
-        component: SuperviseDaglForm
-      }
-    ]
+    name: 'dagl_form',
+    component: SuperviseDaglForm
   }
 ]
 
