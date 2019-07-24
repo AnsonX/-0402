@@ -248,8 +248,15 @@ npm test
     this.$store.registerModule('fileLink', fileLinkStore)
 
   }
+  
+5.mixin
 
-5.样式
+ 强大的mixin可以用于抽离系统全局的功能，比如校验规则等；还可以配置全局data，可以充当全局配置文件使用，比如系统在不同地域部署，相关初始化参数就可以在mixin的data中配置，其他业务组件直接使用即可。
+ 
+ import mixin from '@/src/mixins'
+ Vue.mixin(mixin)
+
+6.样式
 
  1) 尽量不要写行内样式，class命名规则要统一（form-wrap）
  
@@ -258,5 +265,7 @@ npm test
  3) 关于页面主题配置：根据设计规范（字体，色值，线条，间距）创建全局主题风格样式文件，统一覆盖ui框架的样式
 
  3) 如果某些场景需要自定义覆盖ui框架的样式，在公共style目录中建立自己的命名空间（gld-table）
+ 
+ 4) 强烈建议不要轻易使用!important 会导致页面样式相关代码不可控（调整过程中模板上充斥着内敛样式，并且都是!import）
   
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
