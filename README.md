@@ -254,6 +254,7 @@ npm test
  强大的mixin可以用于抽离系统全局的功能，比如校验规则等；还可以配置全局data，可以充当全局配置文件使用，比如系统在不同地域部署，相关初始化参数就可以在mixin的data中配置，其他业务组件直接使用即可。
  
  import mixin from '@/src/mixins'
+ 
  Vue.mixin(mixin)
 
 6.样式
